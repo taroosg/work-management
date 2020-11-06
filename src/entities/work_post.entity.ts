@@ -24,6 +24,12 @@ export class Work_post {
   @Column()
   work_url: string;
 
+  @Column()
+  review: boolean;
+
+  @Column()
+  comment: string;
+
   @CreateDateColumn()
   readonly createdAt?: Date;
 
