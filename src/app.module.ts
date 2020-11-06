@@ -9,4 +9,4 @@ import { WorkPostModule } from './work-post/work-post.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
