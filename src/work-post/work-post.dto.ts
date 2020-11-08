@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class WorkPostDTO {
   // 空文字NG，string型指定
@@ -13,4 +13,12 @@ export class WorkPostDTO {
   @IsNotEmpty()
   @IsString()
   work_url: string;
+
+  @IsNotEmpty()
+  @IsString()
+  review: string;
+
+  @IsOptional()
+  @IsString()
+  comment: string;
 }

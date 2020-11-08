@@ -27,8 +27,8 @@ export class Work_post {
   @Column()
   review: boolean;
 
-  @Column()
-  comment: string;
+  @Column({ nullable: true, type: 'varchar', width: 64 })
+  comment: string | null;
 
   @CreateDateColumn()
   readonly createdAt?: Date;

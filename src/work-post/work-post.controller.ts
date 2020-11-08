@@ -9,7 +9,7 @@ import { WebClient } from '@slack/web-api';
 @Controller('work-post')
 export class WorkPostController {
   // サービスの呼び出し
-  constructor(private readonly service: WorkPostService) {}
+  constructor(private readonly service: WorkPostService) { }
 
   // `item`のURIへのGETメソッドでデータ全件取得．サービスの`findAll()`関数を実行．
   @Get()
@@ -28,7 +28,14 @@ export class WorkPostController {
     const client = new WebClient(findResult.student_id.class_id.slack_token);
     const params = {
       channel: findResult.student_id.class_id.slack_channel,
-      text: `Name: ${findResult.student_id.student_name}\nKadaiNo. ${findResult.work_number}\nURL: ${findResult.work_url}`,
+      text: [
+        `Name: ${findResult.student_id.student_name}`,
+        `KadaiNo. ${findResult.work_number}`,
+        `URL: ${findResult.work_url}`,
+        `Review: ${findResult.review}`,
+        `Comment: ${findResult.comment}`,
+      ].join('\n'),
+      // text: `Name: ${findResult.student_id.student_name}\nKadaiNo. ${findResult.work_number}\nURL: ${findResult.work_url}`,
     };
 
     const response = await client.chat.postMessage(params);

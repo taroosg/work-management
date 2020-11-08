@@ -9,7 +9,7 @@ export class WorkPostService {
   constructor(
     @InjectRepository(Work_post)
     private readonly workPostRepository: Repository<Work_post>,
-  ) {}
+  ) { }
   // テーブルの全データを取得する関数を定義
   async findAll(): Promise<Work_post[]> {
     return await this.workPostRepository.find({
@@ -23,6 +23,8 @@ export class WorkPostService {
       work_number: Number(work_post.work_number),
       work_url: work_post.work_url,
       student_id: Number(work_post.student_id),
+      review: work_post.review.toLowerCase() === "true" ? true : false,
+      comment: work_post.comment,
     };
     return await this.workPostRepository.insert({ ...(newPost as any) });
   }
