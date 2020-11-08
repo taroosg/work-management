@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DATABASE, } from './app.config';
+import { POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DATABASE, RUN_MIGRATIONS } from './app.config';
 
 export const dbConfig: TypeOrmModuleOptions = {
   type: "postgres",
@@ -15,5 +15,5 @@ export const dbConfig: TypeOrmModuleOptions = {
     "dist/migrations/**/*.js"
   ],
   synchronize: false,
-  migrationsRun: true,
+  migrationsRun: RUN_MIGRATIONS.toLowerCase() === "true" ? true : false,
 };
