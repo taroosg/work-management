@@ -15,4 +15,5 @@ export const dbConfig: TypeOrmModuleOptions = {
     "dist/migrations/**/*.js"
   ],
   synchronize: false,
+  migrationsRun: true,
 };

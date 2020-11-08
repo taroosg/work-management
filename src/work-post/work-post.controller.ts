@@ -35,7 +35,6 @@ export class WorkPostController {
         `Review: ${findResult.review}`,
         `Comment: ${findResult.comment}`,
       ].join('\n'),
-      // text: `Name: ${findResult.student_id.student_name}\nKadaiNo. ${findResult.work_number}\nURL: ${findResult.work_url}`,
     };
 
     const response = await client.chat.postMessage(params);
