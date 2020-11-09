@@ -1,16 +1,9 @@
 import {
   Controller,
   Get,
-  Post,
-  Put,
-  Delete,
-  Body,
-  Param,
-} from "@nestjs/common"; // 編集！
-import { ClassService } from "./class.service"; // 追記！
-import { Class } from "../entities/class.entity"; // 追記！
-// import { CreateItemDTO } from "./item.dto"; // 追記！
-import { InsertResult, UpdateResult, DeleteResult } from "typeorm"; // 追記！
+} from "@nestjs/common";
+import { ClassService } from "./class.service";
+import { Class } from "../entities/class.entity";
 
 @Controller('class')
 export class ClassController {
