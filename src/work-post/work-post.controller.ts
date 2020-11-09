@@ -4,7 +4,6 @@ import { WorkPostService } from './work-post.service';
 import { Work_post } from '../entities/work_post.entity';
 import { WorkPostDTO, SlackPostDTO, } from './work-post.dto';
 import { InsertResult, UpdateResult, DeleteResult } from 'typeorm';
-import { WebClient } from '@slack/web-api';
 
 @Controller('work-post')
 export class WorkPostController {
@@ -17,10 +16,17 @@ export class WorkPostController {
   }
 
   @Post()
-  async addItem(@Body() post: WorkPostDTO): Promise<InsertResult> {
-    const insertResult = await this.service.create(post);
+  async addItem(@Body() post: WorkPostDTO): Promise<InsertResult | UpdateResult> {
+    const post_id = await this.service.findByNameAndWork(Number(post.student_id), Number(post.work_number));
+
+    const result = !post_id
+      ? await this.service.create(post)
+      : await this.service.update(post_id, post);
+    // const insertResult = await this.service.create(post);
     const findResult = await this.service.find(
-      insertResult.identifiers[0].post_id,
+      !post_id
+        ? result.generatedMaps[0].post_id
+        : post_id
     );
     const postData: SlackPostDTO = {
       slack_token: findResult.student_id.class_id.slack_token,
@@ -32,7 +38,7 @@ export class WorkPostController {
       comment: findResult.comment,
     }
     const postSlackResult = await this.service.postToSlack(postData);
-    return insertResult;
+    return result;
   }
 
   @Get(':id')
