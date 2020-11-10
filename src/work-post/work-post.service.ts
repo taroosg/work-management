@@ -3,7 +3,7 @@ import { Work_post } from 'src/entities/work_post.entity';
 import { Repository, InsertResult, UpdateEvent, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WorkPostDTO, SlackPostDTO } from './work-post.dto';
-import { WebClient, WebAPICallResult } from '@slack/web-api';
+import { WebClient, WebAPICallResult, retryPolicies } from '@slack/web-api';
 
 @Injectable()
 export class WorkPostService {
@@ -52,7 +52,11 @@ export class WorkPostService {
 
   // slack投稿関数
   async postToSlack(postData: SlackPostDTO): Promise<WebAPICallResult> {
-    const client = new WebClient(postData.slack_token);
+    console.log(postData.slack_token)
+    console.log(postData.slack_channel)
+    const client = new WebClient(postData.slack_token, {
+      retryConfig: retryPolicies.rapidRetryPolicy,
+    });
     const params = {
       channel: postData.slack_channel,
       text: [
