@@ -33,18 +33,6 @@ export class WorkPostService {
       .orderBy('student.student_number', 'ASC')
       .addOrderBy('work_post.work_number', 'ASC')
       .getMany();
-    // return await this.workPostRepository.find({
-    //   relations: ['student_id', 'student_id.class_id'],
-    //   // where: { 'student_id.class_id.class_id': class_id },
-    //   where: {
-    //     'student_id': {
-    //       'student_id.class_id': {
-    //         'student_id.class_id.class_id': 3
-    //       }
-    //     }
-    //   },
-    //   // order: {'student_id.student_number','ASC'},
-    // });
   }
 
   async findByNameAndWork(student_id: number, work_number: number): Promise<false | number> {
@@ -62,7 +50,6 @@ export class WorkPostService {
       work_number: Number(work_post.work_number),
       work_url: work_post.work_url,
       student_id: Number(work_post.student_id),
-      // review: work_post.review.toLowerCase() === "true" ? true : false,
       review: work_post.review,
       comment: work_post.comment,
     };
@@ -82,9 +69,9 @@ export class WorkPostService {
       channel: postData.slack_channel,
       text: [
         `氏名: ${postData.student_name}`,
-        `課題番号. ${postData.work_number}`,
+        `課題番号: ${postData.work_number}`,
         `Github_URL: ${postData.work_url}`,
-        `レビュー会参加: ${postData.review}`,
+        `レビュー会参加: ${postData.review ? '希望' : 'なし'}`,
         `コメント（任意）: ${postData.comment}`,
       ].join('\n'),
     };
