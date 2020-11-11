@@ -25,6 +25,28 @@ export class WorkPostService {
     });
   }
 
+  async findByClass(class_id: number): Promise<Work_post[]> | null {
+    return await this.workPostRepository.createQueryBuilder('work_post')
+      .leftJoinAndSelect('work_post.student_id', 'student')
+      .leftJoinAndSelect('student.class_id', 'class')
+      .where("class.class_id = :class_id", { class_id })
+      .orderBy('student.student_number', 'ASC')
+      .addOrderBy('work_post.work_number', 'ASC')
+      .getMany();
+    // return await this.workPostRepository.find({
+    //   relations: ['student_id', 'student_id.class_id'],
+    //   // where: { 'student_id.class_id.class_id': class_id },
+    //   where: {
+    //     'student_id': {
+    //       'student_id.class_id': {
+    //         'student_id.class_id.class_id': 3
+    //       }
+    //     }
+    //   },
+    //   // order: {'student_id.student_number','ASC'},
+    // });
+  }
+
   async findByNameAndWork(student_id: number, work_number: number): Promise<false | number> {
     const result = await this.workPostRepository.find({
       where: {

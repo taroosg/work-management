@@ -15,6 +15,12 @@ export class WorkPostController {
     return await this.service.findAll();
   }
 
+  @Get(':class_id')
+  async getItemListByClass(@Param('class_id') class_id: string): Promise<Work_post[]> {
+    console.log(Number(class_id));
+    return await this.service.findByClass(Number(class_id));
+  }
+
   @Post()
   async addItem(@Body() post: WorkPostDTO): Promise<InsertResult | UpdateResult> {
     console.log(post);
