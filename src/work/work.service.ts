@@ -11,7 +11,11 @@ export class WorkService {
   ) { }
 
   async findWorkNumberList(): Promise<Work[]> {
-    return await this.itemRepository.find();
+    return await this.itemRepository.find({
+      order: {
+        work_number: 'ASC',
+      },
+    });
   }
 
 }

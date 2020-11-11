@@ -1,22 +1,22 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { isBoolean, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class WorkPostDTO {
   // 空文字NG，string型指定
   @IsNotEmpty()
-  @IsString()
-  work_number: string;
+  @IsNumber()
+  work_number: number;
 
   @IsNotEmpty()
-  @IsString()
-  student_id: string;
+  @IsNumber()
+  student_id: number;
 
   @IsNotEmpty()
   @IsString()
   work_url: string;
 
   @IsNotEmpty()
-  @IsString()
-  review: string;
+  @IsBoolean()
+  review: boolean;
 
   @IsOptional()
   @IsString()

@@ -17,6 +17,7 @@ export class WorkPostController {
 
   @Post()
   async addItem(@Body() post: WorkPostDTO): Promise<InsertResult | UpdateResult> {
+    console.log(post);
     const post_id = await this.service.findByNameAndWork(Number(post.student_id), Number(post.work_number));
 
     const result = !post_id

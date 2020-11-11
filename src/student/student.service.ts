@@ -14,7 +14,10 @@ export class StudentService {
     return await this.itemRepository.find({
       where: {
         class_id: class_id,
-      }
+      },
+      order: {
+        student_number: 'ASC',
+      },
     });
   };
 }

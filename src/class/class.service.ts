@@ -15,7 +15,10 @@ export class ClassService {
       where: {
         start_date: Raw(alias => `${alias} < NOW()`),
         end_date: Raw(alias => `${alias} > NOW()`),
-      }
+      },
+      order: {
+        start_date: 'ASC',
+      },
     });
   }
 

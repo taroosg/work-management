@@ -40,7 +40,8 @@ export class WorkPostService {
       work_number: Number(work_post.work_number),
       work_url: work_post.work_url,
       student_id: Number(work_post.student_id),
-      review: work_post.review.toLowerCase() === "true" ? true : false,
+      // review: work_post.review.toLowerCase() === "true" ? true : false,
+      review: work_post.review,
       comment: work_post.comment,
     };
     return await this.workPostRepository.insert({ ...(newPost as any) });
@@ -52,19 +53,17 @@ export class WorkPostService {
 
   // slack投稿関数
   async postToSlack(postData: SlackPostDTO): Promise<WebAPICallResult> {
-    console.log(postData.slack_token)
-    console.log(postData.slack_channel)
     const client = new WebClient(postData.slack_token, {
       retryConfig: retryPolicies.rapidRetryPolicy,
     });
     const params = {
       channel: postData.slack_channel,
       text: [
-        `Name: ${postData.student_name}`,
-        `KadaiNo. ${postData.work_number}`,
-        `URL: ${postData.work_url}`,
-        `Review: ${postData.review}`,
-        `Comment: ${postData.comment}`,
+        `氏名: ${postData.student_name}`,
+        `課題番号. ${postData.work_number}`,
+        `Github_URL: ${postData.work_url}`,
+        `レビュー会参加: ${postData.review}`,
+        `コメント（任意）: ${postData.comment}`,
       ].join('\n'),
     };
     return await client.chat.postMessage(params);
