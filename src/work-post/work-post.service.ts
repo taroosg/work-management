@@ -30,8 +30,8 @@ export class WorkPostService {
       .leftJoinAndSelect('work_post.student_id', 'student')
       .leftJoinAndSelect('student.class_id', 'class')
       .where("class.class_id = :class_id", { class_id })
-      .orderBy('student.student_number', 'ASC')
-      .addOrderBy('work_post.work_number', 'ASC')
+      .orderBy('work_post.work_number', 'DESC')
+      .addOrderBy('student.student_number', 'ASC')
       .getMany();
   }
 
