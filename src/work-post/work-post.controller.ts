@@ -38,6 +38,7 @@ export class WorkPostController {
     const postData: SlackPostDTO = {
       slack_token: findResult.student_id.class_id.slack_token,
       slack_channel: findResult.student_id.class_id.slack_channel,
+      student_number: findResult.student_id.student_number,
       student_name: findResult.student_id.student_name,
       work_number: findResult.work_number,
       work_url: findResult.work_url,

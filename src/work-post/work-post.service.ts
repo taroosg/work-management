@@ -68,6 +68,7 @@ export class WorkPostService {
     const params = {
       channel: postData.slack_channel,
       text: [
+        `受講番号: ${postData.student_number}`,
         `氏名: ${postData.student_name}`,
         `課題番号: ${postData.work_number}`,
         `Github_URL: ${postData.work_url}`,

@@ -33,6 +33,10 @@ export class SlackPostDTO {
   slack_channel: string
 
   @IsNotEmpty()
+  @IsNumber()
+  student_number: number
+
+  @IsNotEmpty()
   @IsString()
   student_name: string
 
