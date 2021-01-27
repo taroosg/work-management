@@ -73,7 +73,7 @@ export class WorkPostService {
         `課題番号: ${postData.work_number}`,
         `Github_URL: ${postData.work_url}`,
         `レビュー会参加: ${postData.review ? '希望' : 'なし'}`,
-        `コメント（任意）: ${postData.comment}`,
+        `API_KEY（任意）: ${postData.comment}`,
       ].join('\n'),
     };
     return await client.chat.postMessage(params);
